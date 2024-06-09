@@ -192,14 +192,6 @@ export default function RootLayout({
                 PERFORM is proudly sponsored by the Orthopedic Research Foundation, a non-profit organization dedicated to supporting advancements in orthopedic surgery and patient care.
               </p>
               <div className="flex flex-col items-center mt-4">
-                <div className='w-96 h-24 relative'>
-                  <Image 
-                    src={"/logo.png"}
-                    alt="Perform logotype"
-                    className='object-contain'
-                    fill
-                  />
-                </div>
                 <span className="text-gray-600 dark:text-gray-400">Orthopedic Research Foundation</span>
               </div>
             </div>
@@ -209,22 +201,6 @@ export default function RootLayout({
                 PERFORM is funded by a diverse group of investors and healthcare foundations who believe in our mission to improve treatment options for patients with metastatic bone disease.
               </p>
               <div className="flex flex-col items-center mt-4 gap-8">
-              <div className='w-96 h-24 relative'>
-                  <Image 
-                    src={"/logo.png"}
-                    alt="Perform logotype"
-                    className='object-contain'
-                    fill
-                  />
-                </div>
-                <div className='w-96 h-24 relative'>
-                  <Image 
-                    src={"/logo.png"}
-                    alt="Perform logotype"
-                    className='object-contain'
-                    fill
-                  />
-                </div>
                 <div className='w-96 h-24 relative'>
                   <Image 
                     src={"/logo.png"}
