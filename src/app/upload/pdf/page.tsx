@@ -30,7 +30,7 @@ const formSchema = z.object({
   }).optional().nullable(),
 })
 
-export function UploadPDF() {
+export default function UploadPDF() {
   const [file, setFile] = useState<File>();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
