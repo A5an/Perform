@@ -27,7 +27,6 @@ export default async function Home() {
                 </div>
               </div>
             </Link>
-            {/* / */}
             <Link
               href="/"
               className="flex h-full w-full flex-col items-center justify-center bg-teal-500 p-6 text-center transition-colors hover:bg-teal-100 hover:text-black text-white"
