@@ -108,7 +108,7 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-50 mb-4">About Our Company</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-8">
               Acme Inc is a leading provider of innovative solutions for businesses of all sizes. Our team of experts is
-              dedicated to helping our clients achieve their goals and succeed in today's competitive market.
+              dedicated to helping our clients achieve their goals and succeed in today&apos;s competitive market.
             </p>
             <p className="text-gray-600 dark:text-gray-400 mb-8">
               We pride ourselves on our commitment to quality, customer service, and continuous improvement. Our products
