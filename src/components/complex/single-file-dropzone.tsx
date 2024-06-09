@@ -67,7 +67,7 @@ const SingleFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(
       isDragAccept,
       isDragReject,
     } = useDropzone({
-      accept: { '.pdf': [] },
+      accept: { 'application/pdf': [] },
       multiple: false,
       disabled,
       onDrop: (acceptedFiles) => {
@@ -76,6 +76,7 @@ const SingleFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(
           void onChange?.(file);
         }
       },
+      maxSize: 5242880, // max file size 5 mb
       ...dropzoneOptions,
     });
 
@@ -107,7 +108,7 @@ const SingleFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(
       if (fileRejections[0]) {
         const { errors } = fileRejections[0];
         if (errors[0]?.code === 'file-too-large') {
-          return ERROR_MESSAGES.fileTooLarge(dropzoneOptions?.maxSize ?? 0);
+          return ERROR_MESSAGES.fileTooLarge(dropzoneOptions?.maxSize ?? 5242880);
         } else if (errors[0]?.code === 'file-invalid-type') {
           return ERROR_MESSAGES.fileInvalidType();
         } else if (errors[0]?.code === 'too-many-files') {
@@ -124,22 +125,13 @@ const SingleFileDropzone = React.forwardRef<HTMLInputElement, InputProps>(
         <div
           {...getRootProps({
             className: dropZoneClassName,
-            style: {
-              width,
-              height,
-            },
           })}
         >
           {/* Main File Input */}
           <input ref={ref} {...getInputProps()} />
 
           {imageUrl ? (
-            // Image Preview
-            <img
-              className="h-full w-full rounded-md object-cover"
-              src={imageUrl}
-              alt={acceptedFiles[0]?.name}
-            />
+            "PDF Uploaded"
           ) : (
             // Upload Icon
             <div className="flex flex-col items-center justify-center text-xs text-gray-400">

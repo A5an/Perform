@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={sourceSans3.className}>
-        {children}
+        <main>{children}</main>
         <Toaster />
       </body>
     </html>
