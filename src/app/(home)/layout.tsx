@@ -26,7 +26,7 @@ export default function RootLayout({
     <>
       <header className="my-4 top-0 left-0 right-0 z-[999] max-w-6xl mx-auto">
         <div className="container mx-auto flex items-center justify-start px-4 md:px-6">
-          <div className="relative w-96 h-24">
+          <div className="relative w-96 h-28">
             <Link href="#" className="flex items-center" prefetch={false}>
               <Image
                 src={"/logo.png"}
@@ -269,7 +269,7 @@ export default function RootLayout({
             <h3 className="text-xl font-bold text-gray-900 dark:text-gray-50 mb-4">
               Contact Us
             </h3>
-            <p className="text-lg text-gray-900 dark:text-gray-50 mb-4 font-bold">
+            <p className="text-lg text-gray-900 dark:text-gray-50 font-bold">
               PERFORM Trial
             </p>
             <p className="text-gray-600 dark:text-gray-400 mb-2">
@@ -282,30 +282,24 @@ export default function RootLayout({
               Hamilton, ON, Canada, L8V 1C3
             </p>
             <p className="text-gray-600 dark:text-gray-400 mb-2">
-              Phone: (123) 456-7890
-              <br />
               Email:{" "}
-              <a href="mailto:info@performtrial.com">info@performtrial.com</a>
+              <a href="mailto:info@performtrial.com">ghertm@mcmaster.ca</a>
             </p>
           </div>
           <div className="flex flex-col items-start">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-50 mb-4">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-50 mb-4">
               Sponsoring Institution
             </h3>
-            <div className="w-48 h-24 relative">
+            <div className="w-48 h-24 relative mb-4">
               <Image
-                src={"/fwdwebsite/NIH-logo.png"}
+                src={"/fwdwebsite/mcmaster_logo_transparent.png"}
                 alt="Perform logotype"
                 className="object-cover"
                 fill
               />
             </div>
-          </div>
-          <div className="flex flex-col items-start">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-50 mb-4">
-              Funders
-            </h3>
-            <div className="w-56 h-24 relative">
+
+            <div className="w-48 h-24 relative">
               <Image
                 src={"/fwdwebsite/UMB-Logo.jpeg"}
                 alt="Perform logotype"
@@ -313,6 +307,31 @@ export default function RootLayout({
                 fill
               />
             </div>
+          </div>
+          <div className="flex flex-col items-start">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-50 mb-4">
+              Funders
+            </h3>
+
+            <div className="w-56 h-24 relative mb-4">
+              <Image
+                src={"/fwdwebsite/ccsri-300x110.jpg"}
+                alt="Perform logotype"
+                className="object-cover"
+                fill
+              />
+            </div>
+            <div className="w-56 h-24 relative">
+              <Image
+                src={"/fwdwebsite/NIH-logo.png"}
+                alt="Perform logotype"
+                className="object-cover"
+                fill
+              />
+            </div>
+
+            
+            
           </div>
         </div>
       </footer>
