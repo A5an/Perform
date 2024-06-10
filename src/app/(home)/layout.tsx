@@ -16,7 +16,7 @@ export default function RootLayout({
 
   return (
     <>
-      <header className="my-4 top-0 left-0 right-0 z-[999]">
+      <header className="my-4 top-0 left-0 right-0 z-[999] max-w-6xl mx-auto">
         <div className="container mx-auto flex items-center justify-start px-4 md:px-6">
           <div className='relative w-96 h-24'>
             <Link href="#" className="flex items-center" prefetch={false}>
@@ -31,7 +31,7 @@ export default function RootLayout({
           <nav className="hidden flex-col space-y-4 md:flex md:flex-row md:space-y-0 md:space-x-4">
             <Link
               href="/"
-              className={cn("text-black ml-16 text-xl", pathname === "/" ? "hover:no-underline underline" : "hover:underline no-underline")}
+              className={cn("text-black ml-8 text-xl", pathname === "/" ? "hover:no-underline underline" : "hover:underline no-underline")}
               prefetch={false}
             >
               Home
@@ -92,7 +92,7 @@ export default function RootLayout({
               <NavigationMenuList className=''>
                 <NavigationMenuItem className=''>
                   <NavigationMenuTrigger className={cn("text-black mx-4 text-xl", pathname === "/collabaration" ? "hover:no-underline underline" : "hover:underline no-underline")}>
-                    Collabaration
+                    Collaboration
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <Link href="/collabaration" legacyBehavior passHref>
@@ -155,13 +155,6 @@ export default function RootLayout({
             >
               News
             </Link>
-            <Link
-              href="/upload/pdf"
-              className={cn("text-black ml-16 text-xl", pathname === "/upload/pdf" ? "hover:no-underline underline" : "hover:underline no-underline")}
-              prefetch={false}
-            >
-              Upload Your PDF
-            </Link>
           </nav>
         </div>
       </header>
@@ -169,46 +162,43 @@ export default function RootLayout({
       <footer className="bg-gray-100 dark:bg-gray-800 py-8">
           <div className="container mx-auto grid grid-cols-1 gap-8 px-4 md:grid-cols-3 md:px-6">
             <div className="flex flex-col items-start">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-gray-50 mb-4">Contact Us</h3>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-50 mb-4">Contact Us</h3>
+              <p className="text-lg text-gray-900 dark:text-gray-50 mb-4 font-bold">PERFORM Trial</p>
               <p className="text-gray-600 dark:text-gray-400 mb-2">
-                123 Main Street
+                Methods Centre
                 <br />
-                Anytown, USA 12345
+                Juravinski Hospital – Lakeview Lodge
+                <br />
+                711 Concession St, Level 3 Room 11
+                <br />
+                Hamilton, ON, Canada, L8V 1C3
               </p>
               <p className="text-gray-600 dark:text-gray-400 mb-2">
                 Phone: (123) 456-7890
                 <br />
-                Email: info@performtrial.com
+                Email: <a href="mailto:info@performtrial.com">info@performtrial.com</a>
               </p>
-              <div className="flex items-center mt-4">
-                <FacebookIcon className="h-6 w-6 text-gray-600 dark:text-gray-400 mr-2" />
-                <TwitterIcon className="h-6 w-6 text-gray-600 dark:text-gray-400 mr-2" />
-                <LinkedinIcon className="h-6 w-6 text-gray-600 dark:text-gray-400 mr-2" />
-              </div>
             </div>
             <div className="flex flex-col items-start">
               <h3 className="text-lg font-bold text-gray-900 dark:text-gray-50 mb-4">Sponsoring Institution</h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-2">
-                PERFORM is proudly sponsored by the Orthopedic Research Foundation, a non-profit organization dedicated to supporting advancements in orthopedic surgery and patient care.
-              </p>
-              <div className="flex flex-col items-center mt-4">
-                <span className="text-gray-600 dark:text-gray-400">Orthopedic Research Foundation</span>
+              <div className='w-48 h-24 relative'>
+                <Image 
+                  src={"/fwdwebsite/NIH-logo.png"}
+                  alt="Perform logotype"
+                  className='object-cover'
+                  fill
+                />
               </div>
             </div>
             <div className="flex flex-col items-start">
               <h3 className="text-lg font-bold text-gray-900 dark:text-gray-50 mb-4">Funders</h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-2">
-                PERFORM is funded by a diverse group of investors and healthcare foundations who believe in our mission to improve treatment options for patients with metastatic bone disease.
-              </p>
-              <div className="flex flex-col items-center mt-4 gap-8">
-                <div className='w-96 h-24 relative'>
-                  <Image 
-                    src={"/logo.png"}
-                    alt="Perform logotype"
-                    className='object-contain'
-                    fill
-                  />
-                </div>
+              <div className='w-56 h-24 relative'>
+                <Image 
+                  src={"/fwdwebsite/UMB-Logo.jpeg"}
+                  alt="Perform logotype"
+                  className='object-cover'
+                  fill
+                />
               </div>
             </div>
           </div>
