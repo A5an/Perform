@@ -285,3 +285,12 @@
 .leaflet-control-geosearch a.reset:hover {
   background: #f5f5f5;
 }
+
+.required:after {
+  content:" *";
+  color: red;
+}
+
+.leaflet-control { z-index: 0 !important}
+.leaflet-pane { z-index: 0 !important}
+.leaflet-top, .leaflet-bottom {z-index: 0 !important}

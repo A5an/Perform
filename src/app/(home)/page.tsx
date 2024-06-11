@@ -3,6 +3,8 @@ import Link from "next/link"
 import { Globe, LogOut, Pen } from 'lucide-react';
 import { MyLeafletMap } from './components/leafelt-map';
 import { prisma } from '@/lib/prisma';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 export default async function Home() {
   const articles = await prisma.article.findMany({});
@@ -61,22 +63,28 @@ export default async function Home() {
           </div>
           <div className="flex flex-col items-start justify-center">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-50 mb-4">Latest News from PERFORM</h2>
-            <div className="grid grid-cols-2 gap-4">              
+            <div className="grid grid-cols-1 gap-4">              
               {articles.length > 0 ? articles.map((article) => (
-                <Link
-                  href={`/articles/${article.id}`}
-                  className="flex h-full w-full flex-col items-start justify-center rounded-lg bg-gray-100 p-6 text-left transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 min-w-52"
-                  prefetch={false}
-                  key={article.id}
-                >
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-gray-50 mb-2">{article.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    {article.description}
-                  </p>
-                </Link>
+                <div>
+                  <Link
+                    href={`/articles/${article.id}`}
+                    className="text-left transition-colors"
+                    prefetch={false}
+                    key={article.id}
+                  >
+                    <h3 className="text-teal-600 dark:text-gray-50 text-3xl font-bold capitalize underline hover:no-underline">{article.title}</h3>
+                  </Link>
+                  <p className='text-lg my-1'>{formatDate(article.createdAt)}</p>
+                  <Link
+                    href={`/articles/${article.id}`}
+                    className={cn(buttonVariants(), "bg-teal-600 font-bold my-1")}
+                  >
+                    Read More
+                  </Link>
+                </div>
               )) : (
                 <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-                  Currently there are no articles available
+                  Currently there are no news available
                 </h4>
               )}
             </div>
@@ -85,4 +93,16 @@ export default async function Home() {
       </div>
     </div>
   )
+}
+
+function formatDate(date: Date) {
+  const formattedDate = date.toLocaleDateString('en-US', {
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+
+  const postedDate = `Posted on ${formattedDate}`;
+
+  return postedDate;
 }

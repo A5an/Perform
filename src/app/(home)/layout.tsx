@@ -264,7 +264,7 @@ export default function RootLayout({
       </header>
       <main>{children}</main>
       <footer className="bg-gray-100 dark:bg-gray-800 py-8">
-     <div className="container mx-auto max-w-fit grid grid-cols-1 md:grid-cols-3 gap-44 px-4 md:px-6">
+        <div className="container mx-auto max-w-fit grid grid-cols-1 md:grid-cols-3 gap-44 px-4 md:px-6">
           <div className="flex flex-col items-start">
             <h3 className="text-xl font-bold text-gray-900 dark:text-gray-50 mb-4">
               Contact Us
