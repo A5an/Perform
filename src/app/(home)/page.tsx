@@ -65,12 +65,11 @@ export default async function Home() {
             <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-50 mb-4">Latest News from PERFORM</h2>
             <div className="grid grid-cols-1 gap-4">              
               {articles.length > 0 ? articles.map((article) => (
-                <div>
+                <div key={article.id}>
                   <Link
                     href={`/articles/${article.id}`}
                     className="text-left transition-colors"
                     prefetch={false}
-                    key={article.id}
                   >
                     <h3 className="text-teal-600 dark:text-gray-50 text-3xl font-bold capitalize underline hover:no-underline">{article.title}</h3>
                   </Link>
