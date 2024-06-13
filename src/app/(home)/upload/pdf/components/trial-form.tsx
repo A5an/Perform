@@ -227,7 +227,7 @@ export const TrialApplicationForm = () => {
           )}
         />
         <h3 className="scroll-m-20 text-2xl tracking-tight mt-6 font-semibold first:mt-0">
-          If yes, please provide your Study Coordinator's contact information below.
+          If yes, please provide your Study Coordinator&apos;s contact information below.
         </h3>
         <h2 className="scroll-m-20 text-3xl tracking-tight mt-6 font-semibold first:mt-0">
           Study Coordinator Name:
