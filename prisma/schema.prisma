@@ -22,3 +22,152 @@ model Article {
   description     String?
   pdfUrl          String
 }
+
+model Address {
+  id        String     @id @default(uuid()) @unique
+  streetNo  String? 
+  streetName String?
+  postalCode String?
+  city       String?
+  state      String?
+  country    String?
+  Investigator   Investigator?   @relation(fields: [investigatorId], references: [id])
+  StudyCoordinator StudyCoordinator? @relation(fields: [studyCoordinatorId], references: [id])
+
+  investigatorId  String? @unique
+  studyCoordinatorId  String? @unique
+}
+
+model ContactInfo {
+  id         String     @id @default(uuid()) @unique
+  workPhone  String? 
+  mobilePhone String?
+  email      String
+
+  Investigator   Investigator?   @relation(fields: [investigatorId], references: [id])
+  StudyCoordinator StudyCoordinator? @relation(fields: [studyCoordinatorId], references: [id])
+
+  investigatorId  String? @unique
+  studyCoordinatorId  String? @unique
+}
+
+model Investigator {
+  id                        String       @id @default(uuid()) @unique
+  firstName                 String
+  lastName                  String
+  address                   Address?
+  contact                   ContactInfo?
+  hasDedicatedStudyCoordinator Boolean? 
+  studyCoordinatorId        Int?
+  studyCoordinator          StudyCoordinator?
+  addressId                 String? @unique
+  contactId                 String? @unique
+
+  ClinicalSite              ClinicalSite[] 
+  ClinicalTrialQuestions    ClinicalTrialQuestions[]
+}
+
+model StudyCoordinator {
+  id         String     @id @default(uuid()) @unique
+  firstName  String? 
+  lastName   String?
+  address    Address?
+  contact    ContactInfo?
+  Investigator   Investigator? @relation(fields: [investigatorId], references: [id])
+  investigatorId  String? @unique
+
+  addressId  Int?
+  contactId  String? @unique
+}
+
+model ClinicalSite {
+  id                                       Int       @id @default(autoincrement())
+  affiliatedHospital                       String?
+  affiliatedUniversity                     String?
+  otherSiteInvestigators                   String?
+  specialtyArea                            String?
+  isBoardCertified                         Boolean?
+  boardCertificationSpecialties            String?
+  hasGCPTraining                           Boolean?
+  hasRegulatedTrialsExperience             Boolean?
+  clinicalTrialsParticipated               ClinicalTrialsParticipated?
+  isParticipatingInIndustryTrials          Boolean?
+  researchCoordinatorHasGCPTraining        Boolean?
+  studyCoordinatorRegulatedTrialsExperience Boolean?
+  studyCoordinatorClinicalTrialsWorkedOn   StudyCoordinatorClinicalTrialsWorkedOn?
+  hasSOPs                                  Boolean?
+  patientMedicalRecordMaintenance          PatientMedicalRecordMaintenance?
+  allowsMcMasterReview                     Boolean?
+  allowsDeIdentifiedNotesSubmission        Boolean?
+  newPrimaryExtremitySarcomasTreatedYearly NewPrimaryExtremitySarcomasTreatedYearly?
+  postOpSurveillancePractice               PostOpSurveillancePractice?
+  postOpSurveillanceOther                  String?
+  imagingModalitiesAvailable               Boolean?
+  followUpFrequencyFirstTwoYears           FollowUpFrequencyFirstTwoYears?
+  followUpFrequencyOther                   String?
+
+  investigatorId                           String? @unique
+  Investigator                             Investigator? @relation(fields: [investigatorId], references: [id])
+}
+
+model ClinicalTrialQuestions {
+  id                             Int       @id @default(autoincrement())
+  comfortableWithRandomization   Boolean?
+  logisticalChallenges           Boolean?
+  logisticalChallengesDetails    String?
+  challengesWithDocumentingEvents Boolean?
+  documentingEventsDetails       String?
+  challengesWithAdministeringQuestionnaires Boolean?
+  administeringQuestionnairesDetails String?
+  challengesWithFiveYearFollowUp Boolean?
+  fiveYearFollowUpDetails        String?
+  challengesWithDocumentingCosts Boolean?
+  documentingCostsDetails        String?
+  interestedInParticipating      Boolean?
+  additionalRelevantInformation  String?
+
+  investigatorId                 String? @unique
+  Investigator                   Investigator? @relation(fields: [investigatorId], references: [id])
+}
+
+enum ClinicalTrialsParticipated {
+  ONE
+  TWO
+  THREE
+  FOUR
+  FIVE_PLUS
+}
+
+enum PatientMedicalRecordMaintenance {
+  ORIGINAL_PAPER
+  BOTH_PAPER_ELECTRONIC
+  ENTIRE_COMPUTERIZED
+}
+
+enum NewPrimaryExtremitySarcomasTreatedYearly {
+  LESS_THAN_TEN
+  TEN_TO_NINETEEN
+  TWENTY_TO_TWENTY_NINE
+  THIRTY_TO_THIRTY_NINE
+  FORTY_PLUS
+}
+
+enum PostOpSurveillancePractice {
+  CHEST_CT_SCAN
+  CXR
+  OTHER
+}
+
+enum StudyCoordinatorClinicalTrialsWorkedOn {
+  ONE
+  TWO
+  THREE
+  FOUR
+  FIVE_PLUS
+}
+
+enum FollowUpFrequencyFirstTwoYears {
+  EVERY_THREE_MONTHS
+  EVERY_SIX_MONTHS
+  OTHER
+}

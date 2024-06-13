@@ -148,10 +148,15 @@ export const defaultValues: z.infer<typeof formSchema> = {
   clinicalTrialQuestions: {
     comfortableWithRandomization: null,
     logisticalChallenges: null,
+    logisticalChallengesDetails: "",
     challengesWithDocumentingEvents: null,
+    documentingEventsDetails: "",
     challengesWithAdministeringQuestionnaires: null,
+    administeringQuestionnairesDetails: "",
     challengesWithFiveYearFollowUp: null,
+    fiveYearFollowUpDetails: "",
     challengesWithDocumentingCosts: null,
+    documentingCostsDetails: "",
     interestedInParticipating: null,
     additionalRelevantInformation: ""
   }
