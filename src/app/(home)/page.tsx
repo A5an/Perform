@@ -6,6 +6,8 @@ import { prisma } from '@/lib/prisma';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const articles = await prisma.article.findMany({});
 

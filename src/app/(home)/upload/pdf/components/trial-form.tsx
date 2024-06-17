@@ -24,6 +24,7 @@ import { useEdgeStore } from '@/lib/edgestore/edgestore';
 
 import { formSchema as trialFormSchema, defaultValues as trialDefaultValues } from '../formSchema';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { uploadApplication } from '../server-functions/upload-application';
 
 export const TrialApplicationForm = () => {
   const trialForm = useForm<z.infer<typeof trialFormSchema>>({
@@ -37,7 +38,27 @@ export const TrialApplicationForm = () => {
   const { edgestore } = useEdgeStore();
 
   const submitTrialApplication = async (values: z.infer<typeof trialFormSchema>) => {
-    console.log(values);
+    setTrialLoading(true);
+
+    try {
+      await uploadApplication(values);
+
+      toast({
+        title: "Successfully submitted application!",
+        description: "Application was succesfully sumitted, you will be redirected to home page",
+        variant: "default"
+      })
+
+      router.push('/');
+    } catch (e: unknown) {
+      toast({
+        title: "Error! Something went wrong.",
+        description: "We couldn't save your article to database. Please try again.",
+        variant: "destructive"
+      })
+    } finally {
+      setTrialLoading(false);
+    }
   }
 
   return (
