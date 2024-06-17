@@ -21,7 +21,6 @@ export async function uploadApplication(values: z.infer<typeof formSchema>) {
       workPhone: values.investigator.contact.workPhone,
       mobilePhone: values.investigator.contact.mobilePhone,
       email: values.investigator.contact.email,
-      investigatorId: address.id,
     },
   });
 

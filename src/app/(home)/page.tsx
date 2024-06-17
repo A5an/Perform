@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const articles = await prisma.article.findMany({});
+  const articles = await prisma.article.findMany();
 
   return (
     <div>

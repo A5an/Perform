@@ -51,9 +51,10 @@ export const TrialApplicationForm = () => {
 
       router.push('/');
     } catch (e: unknown) {
+      console.log(e);
       toast({
         title: "Error! Something went wrong.",
-        description: "We couldn't save your article to database. Please try again.",
+        description: "We couldn't submit your application to database. Please try again.",
         variant: "destructive"
       })
     } finally {
