@@ -71,7 +71,7 @@ export const UploadNewsForm = () => {
             })
 
             if ('message' in result) {
-              toast({
+              return toast({
                 title: "Error!",
                 description: result.message,
                 variant: "destructive"
