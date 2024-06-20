@@ -15,7 +15,7 @@ export default async function Home() {
     <div>
       <div className='max-w-6xl mx-auto'>
         <main className="container mx-auto grid grid-cols-1 gap-8 px-4 md:grid-cols-3 md:px-6 lg:py-8">
-          <div className="flex flex-col items-center justify-center gap-4 col-span-1">
+          <div className="flex flex-col items-center justify-center gap-4 col-span-2 md:col-span-1">
             <Link
               href="/"
               className="flex h-full w-full flex-col items-center justify-center bg-custom-blue p-6 text-center transition-colors hover:bg-teal-100 hover:text-black text-white"
@@ -51,7 +51,7 @@ export default async function Home() {
             <MyLeafletMap />
           </div>
         </main>
-        <section className="container mx-auto grid grid-cols-2 justify-between items-start gap-12 px-4 py-12 md:grid-cols-2 md:px-6 lg:py-16">
+        <section className="container mx-auto grid grid-cols-1 justify-between items-start gap-12 px-4 py-12 md:grid-cols-2 md:px-6 lg:py-16">
           <div className="flex flex-col items-start justify-center">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-50 mb-4">What is the PERFORM trial?</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-8">

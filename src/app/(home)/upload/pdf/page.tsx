@@ -17,7 +17,7 @@ export default async function TrialForms() {
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
           Write Article For The News On Home Page
         </h1>
-        <div className="flex justify-between gap-8">
+        <div className="flex lg:flex-row flex-col justify-between gap-8">
           <div>
             <UploadNewsForm />
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mt-12">

@@ -31,6 +31,7 @@ const formSchema = z.object({
   description: z.string().min(2, {
     message: "Description must be at least 2 characters.",
   }).optional().nullable(),
+  password: z.string(),
 })
 
 export const UploadNewsForm = () => {
@@ -40,6 +41,7 @@ export const UploadNewsForm = () => {
     defaultValues: {
       title: "",
       description: "",
+      password: "",
     },
   })
 
@@ -61,11 +63,20 @@ export const UploadNewsForm = () => {
 
         if (res.url) {
           try {
-            await uploadPDF({
+            const result = await uploadPDF({
               title: values.title,
               pdfUrl: res.url,
               description: values.description ?? "",
+              password: values.password,
             })
+
+            if ('message' in result) {
+              toast({
+                title: "Error!",
+                description: result.message,
+                variant: "destructive"
+              })
+            }
 
             toast({
               title: "Successfully uploaded article!",
@@ -134,7 +145,7 @@ export const UploadNewsForm = () => {
             </FormItem>
           )}
         />
-        <FormLabel className='required'>Description</FormLabel>
+        <FormLabel className='required'>News PDF</FormLabel>
         <SingleFileDropzone
           width={400}
           height={200}
@@ -143,6 +154,19 @@ export const UploadNewsForm = () => {
           onChange={(file?: File) => {
             setFile(file);
           }}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className='required'>Password</FormLabel>
+              <FormControl>
+                <Textarea placeholder="Secret password is required for uploading news on this website" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
         <Button disabled={loading} className='w-max py-1 bg-teal-600'>
           {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
