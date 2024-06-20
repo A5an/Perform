@@ -99,13 +99,14 @@ export const UploadNewsForm = () => {
             variant: "destructive"
           })
         }
-        setLoading(false);
       } catch (e: unknown) {
         toast({
           title: "Error! Something went wrong.",
           description: "We couldn't save your article to database. Please try again.",
           variant: "destructive"
         })
+      } finally {
+        setLoading(false);
       }
     } else {
       toast({
