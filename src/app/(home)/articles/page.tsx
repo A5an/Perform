@@ -18,11 +18,13 @@ import {
 } from "@/components/complex/credenza"
 import { DeleteForm } from './components/delete-form';
 
+export const dynamic = "force-dynamic";
+
 export default async function ArticlesPage() {
   const articles = await prisma.article.findMany();
 
   return (
-    <Card>
+    <Card className='h-screen'>
       <CardContent>
       <Table>
         <TableHeader>
@@ -44,6 +46,11 @@ export default async function ArticlesPage() {
           </TableRow>
         </TableHeader>
         <TableBody>
+          {articles.length === 0 ? (
+            <h4 className="scroll-m-20 text-xl font-semibold tracking-tight w-full text-center">
+              Currently there are no articles
+            </h4>
+          ) : null}
           {articles.map((article) => (
             <TableRow key={article.id}>
               <TableCell className="font-medium">
