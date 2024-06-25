@@ -56,7 +56,7 @@ export default async function ArticlesPage() {
               <TableCell className="font-medium">
                 {article.title}
               </TableCell>
-              <TableCell>
+              <TableCell className='max-w-[100px] truncate'>
                 {article.description}
               </TableCell>
               <TableCell className="hidden md:table-cell">
