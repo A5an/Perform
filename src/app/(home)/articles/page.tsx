@@ -24,8 +24,9 @@ export default async function ArticlesPage() {
   const articles = await prisma.article.findMany();
 
   return (
-    <Card className='h-screen'>
+    <Card className='h-[50vh]'>
       <CardContent>
+      <Credenza>
       <Table>
         <TableHeader>
           <TableRow>
@@ -80,14 +81,12 @@ export default async function ArticlesPage() {
                   <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
                     <DropdownMenuItem>
-                    <Credenza>
-                      <CredenzaTrigger asChild>
-                        <button>Delete</button>
-                      </CredenzaTrigger>
-                      <CredenzaContent>
-                        <DeleteForm articleId={article.id} />
-                      </CredenzaContent>
-                    </Credenza>
+                        <CredenzaTrigger asChild>
+                          <button>Delete</button>
+                        </CredenzaTrigger>
+                        <CredenzaContent>
+                          <DeleteForm articleId={article.id} />
+                        </CredenzaContent>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -96,6 +95,7 @@ export default async function ArticlesPage() {
           ))}
         </TableBody>
       </Table>
+                      </Credenza>
       </CardContent>
     </Card>
   )
