@@ -14,15 +14,15 @@ export default async function TrialForms() {
   return (
     <div className='max-w-6xl mx-auto'>
       <main className='container gap-8 px-4 py-12 md:px-6 lg:py-16 mt-16'>
-        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-          Write Article For The News On Home Page
-        </h1>
         <div className="flex lg:flex-row flex-col justify-between gap-8">
           <div>
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mt-12">
               Physician Clinical Trial Application
             </h1>
             <TrialApplicationForm />
+            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+              Write Article For The News On Home Page
+            </h1>
             <UploadNewsForm />
           </div>
           <div>

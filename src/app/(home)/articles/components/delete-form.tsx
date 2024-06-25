@@ -68,11 +68,11 @@ export const DeleteForm = ({ articleId }: DeleteFormProps) => {
       <CredenzaHeader>
         <CredenzaTitle>Do you realy want to delete this article?</CredenzaTitle>
         <CredenzaDescription>
-          It'll be deleted without any opportunity to restore it.
+          It&apos;ll be deleted without any opportunity to restore it.
         </CredenzaDescription>
       </CredenzaHeader>
       <CredenzaBody>
-        If you're ready to process, enter password.
+        If you&apos;re ready to process, enter password.
         <Form {...form}>
           <form onSubmit={form.handleSubmit(deleteArticle)} className="space-y-8 w-full mt-12">
             <FormField
