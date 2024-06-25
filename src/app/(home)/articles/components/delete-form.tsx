@@ -88,9 +88,9 @@ export const DeleteForm = ({ articleId }: DeleteFormProps) => {
                 </FormItem>
               )}
             />
-            <Button disabled={loading} className='w-max py-1 bg-teal-600'>
+            <Button disabled={loading} className='w-max py-1 bg-red-600'>
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Send News
+              Delete
             </Button>
           </form>
         </Form>

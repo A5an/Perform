@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { prisma } from '@/lib/prisma';
-import { MoreHorizontal } from 'lucide-react';
+import { MoreHorizontal, Trash } from 'lucide-react';
 import {
   Credenza,
   CredenzaContent,
@@ -24,9 +24,15 @@ export default async function ArticlesPage() {
   const articles = await prisma.article.findMany();
 
   return (
-    <Card className='h-[50vh]'>
+    <Card className='h-[50vh] py-10 md:px-20'>
+      <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-50 mb-4 mr-4">Articles</h2>
       <CardContent>
-      <Credenza>
+      {articles.length === 0 ? (
+      <h4 className="scroll-m-20 text-xl font-semibold tracking-tight w-full text-center">
+        Currently there are no articles
+      </h4>
+    ) : (
+
       <Table>
         <TableHeader>
           <TableRow>
@@ -47,11 +53,6 @@ export default async function ArticlesPage() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {articles.length === 0 ? (
-            <h4 className="scroll-m-20 text-xl font-semibold tracking-tight w-full text-center">
-              Currently there are no articles
-            </h4>
-          ) : null}
           {articles.map((article) => (
             <TableRow key={article.id}>
               <TableCell className="font-medium">
@@ -67,35 +68,22 @@ export default async function ArticlesPage() {
                 {formatDate(article.createdAt)}
               </TableCell>
               <TableCell>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      aria-haspopup="true"
-                      size="icon"
-                      variant="ghost"
-                    >
-                      <MoreHorizontal className="h-4 w-4" />
-                      <span className="sr-only">Toggle menu</span>
+                <Credenza>
+                  <CredenzaTrigger asChild>
+                    <Button variant={'destructive'}>
+                      <Trash />
                     </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem>
-                        <CredenzaTrigger asChild>
-                          <button>Delete</button>
-                        </CredenzaTrigger>
-                        <CredenzaContent>
-                          <DeleteForm articleId={article.id} />
-                        </CredenzaContent>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                  </CredenzaTrigger>
+                  <CredenzaContent>
+                    <DeleteForm articleId={article.id} />
+                  </CredenzaContent>
+                </Credenza>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-                      </Credenza>
+      )}
       </CardContent>
     </Card>
   )
