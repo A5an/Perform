@@ -62,7 +62,7 @@ export default function RootLayout({
               <br />
               Juravinski Hospital – Lakeview Lodge
               <br />
-              711 Concession St, Level 3 Room 11
+              711 Concession St, Level 3 Room 6
               <br />
               Hamilton, ON, Canada, L8V 1C3
             </p>

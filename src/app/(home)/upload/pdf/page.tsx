@@ -19,11 +19,11 @@ export default async function TrialForms() {
         </h1>
         <div className="flex lg:flex-row flex-col justify-between gap-8">
           <div>
-            <UploadNewsForm />
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mt-12">
               Physician Clinical Trial Application
             </h1>
             <TrialApplicationForm />
+            <UploadNewsForm />
           </div>
           <div>
             <div className="flex flex-col items-center justify-center gap-4 col-span-1">
