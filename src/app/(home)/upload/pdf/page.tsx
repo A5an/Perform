@@ -20,7 +20,7 @@ export default async function TrialForms() {
               Physician Clinical Trial Application
             </h1>
             <TrialApplicationForm />
-            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mt-5">
               Write Article For The News On Home Page
             </h1>
             <UploadNewsForm />
