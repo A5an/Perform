@@ -44,7 +44,15 @@ export const DeleteForm = ({ articleId }: DeleteFormProps) => {
     setLoading(true);
 
     try {
-      await deleteArticleAction({ id: articleId, password: values.password })
+      const res = await deleteArticleAction({ id: articleId, password: values.password })
+
+      if (typeof res !== 'string' && 'message' in res) {
+        return toast({
+          title: "Error!",
+          description: res.message,
+          variant: "destructive"
+        })
+      }
 
       toast({
         title: "Successfully deleted article!",
