@@ -62,7 +62,11 @@ export default async function ArticlesPage() {
                 {article.description}
               </TableCell>
               <TableCell className="hidden md:table-cell">
-                <a href={article.pdfUrl} target='_blank'>View</a>
+                {article.pdfUrl && (
+                  <a href={article.pdfUrl} target='_blank' rel="noopener noreferrer">
+                    View
+                  </a>
+                )}
               </TableCell>
               <TableCell className="hidden md:table-cell">
                 {formatDate(article.createdAt)}
