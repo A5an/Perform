@@ -178,7 +178,7 @@ export const Nav = () => {
                       Investigator Recources
                     </NavigationMenuTrigger>
                     <NavigationMenuContent className="w-full animate-none">
-                      <Link href="/recources" legacyBehavior passHref>
+                      <Link href="/news" legacyBehavior passHref>
                         <NavigationMenuLink
                           className={cn(
                             navigationMenuTriggerStyle(),

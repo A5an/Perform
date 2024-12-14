@@ -1,5 +1,3 @@
-import { UploadNewsForm } from './components/upload-news-form';
-import { TrialApplicationForm } from './components/trial-form';
 import Link from 'next/link';
 import { Globe, Pen } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
@@ -8,20 +6,53 @@ import { buttonVariants } from '@/components/ui/button';
 
 export const dynamic = "force-dynamic";
 
-export default async function TrialForms() {
+export default async function ContactUs() {
   const articles = await prisma.article.findMany();
 
   return (
     <div className='max-w-6xl mx-auto'>
       <main className='container gap-8 px-4 py-12 md:px-6 lg:py-16 mt-4'>
         <div className="flex lg:flex-row flex-col justify-between gap-8">
-          <div>
-            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mt-4">
-              Physician Clinical Trial Application
-            </h1>
-            <TrialApplicationForm />
+          <div className="w-72">
+            <h1 className="text-5xl font-extrabold mb-12">Contact Us</h1>
+            
+            <section className="space-y-8">
+              <div>
+                <strong className="text-2xl block mb-4">Coordinating Site Location</strong>
+                <p>Surgery Methods Centre</p>
+                <p>Department of Surgery</p>
+                <p>McMaster University</p>
+                
+                <strong className="text-2xl block mt-4 mb-4">Address</strong>
+                <p>711 Concession Street</p>
+                <p>Lakeview Lodge | L3, R6</p>
+                <p>Hamilton, ON L8V 1C3</p>
+              </div>
+
+              <div>
+                <strong className="text-2xl block mb-4">Principal Investigator</strong>
+                <p>Michelle Ghert</p>
+                <p className="mt-2">
+                  <strong>Email: </strong>
+                  <a href="mailto:ghertm@mcmaster.ca" className="text-teal-600 hover:underline">
+                    ghertm@mcmaster.ca
+                  </a>
+                </p>
+              </div>
+
+              <div>
+                <strong className="text-2xl block mb-4">Research Coordinator</strong>
+                <p>Olivia Virag</p>
+                <p className="mt-2">
+                  <strong>Email: </strong>
+                  <a href="mailto:viragoe@mcmaster.ca" className="text-teal-600 hover:underline">
+                    viragoe@mcmaster.ca
+                  </a>
+                </p>
+              </div>
+            </section>
           </div>
-          <div>
+          <div className='w-96'>
             <div className="flex flex-col items-center justify-center gap-4 col-span-1">
               <Link
                 href="/"

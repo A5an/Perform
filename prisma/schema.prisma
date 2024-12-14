@@ -20,7 +20,14 @@ model Article {
 
   title           String   @unique
   description     String?
-  pdfUrl          String
+  pdfUrl          String?
+}
+
+model Marker {
+  id        String   @id @default(cuid())
+  lat       Float
+  lng       Float
+  createdAt DateTime @default(now())
 }
 
 model Address {

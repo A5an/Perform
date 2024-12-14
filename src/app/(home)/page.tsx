@@ -1,7 +1,7 @@
 import Link from "next/link"
 
 import { Globe, LogOut, Pen } from 'lucide-react';
-import { MyLeafletMap } from './components/leafelt-map';
+import MyLeafletMap from './components/leafelt-map';
 import { prisma } from '@/lib/prisma';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';

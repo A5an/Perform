@@ -27,7 +27,7 @@ export default function RootLayout({
           <div className="relative w-96 h-28">
             <Link href="#" className="flex items-center" prefetch={false}>
               <Image
-                src={"/logo.png"}
+                src={"/logonew.png"}
                 alt="Perform logotype"
                 className="object-contain"
                 fill
