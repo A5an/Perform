@@ -368,7 +368,7 @@ export const TrialApplicationForm = () => {
             name="investigator.studyCoordinator.contractEndDate"
             render={({ field }) => (
               <FormItem className="space-y-3">
-                <FormLabel>What is the Study Coordinator's contract end date?</FormLabel>
+                <FormLabel>What is the Study Coordinator&apos;s contract end date?</FormLabel>
                 <div className="flex gap-4 items-center">
                   <FormControl>
                     <Input 
