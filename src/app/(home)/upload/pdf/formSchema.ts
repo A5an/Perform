@@ -27,6 +27,11 @@ const investigatorSchema = z.object({
   studyCoordinator: z.object({
     firstName: z.string().optional(),
     lastName: z.string().optional(),
+    employmentType: z.array(z.enum(['fullTime', 'partTime', 'casual', 'contract'])).optional(),
+    contractEndDate: z.union([
+      z.string(), // For date string
+      z.literal('N/A') // For N/A option
+    ]).optional(),
     address: addressSchema.optional(),
     contact: contactInfoSchema.optional()
   }).optional()
@@ -59,7 +64,12 @@ const clinicalSiteSchema = z.object({
   postOpSurveillanceOther: z.string().optional().optional().nullable(),
   imagingModalitiesAvailable: z.boolean().optional().nullable(),
   followUpFrequencyFirstTwoYears: z.enum(["Every 3 Months", "Every 6 Months", "Other"]).optional().nullable(),
-  followUpFrequencyOther: z.string().optional()
+  followUpFrequencyOther: z.string().optional(),
+  canPerformAllSurgeries: z.boolean().optional().nullable(),
+  surgeriesCompletedAtSite: z.boolean().optional().nullable(),
+  surgeriesNotCompletedExplanation: z.string().optional(),
+  coordinatorAllowedDuringSurgery: z.boolean().optional().nullable(),
+  
 });
 
 const clinicalTrialQuestionsSchema = z.object({
@@ -105,6 +115,8 @@ export const defaultValues: z.infer<typeof formSchema> = {
     studyCoordinator: {
       firstName: "",
       lastName: "",
+      employmentType: [], // Empty array for no selections
+      contractEndDate: "",
       address: {
         streetNo: "",
         streetName: "",

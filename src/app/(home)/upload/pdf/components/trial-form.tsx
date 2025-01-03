@@ -21,6 +21,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEdgeStore } from '@/lib/edgestore/edgestore';
+import { Checkbox } from "@/components/ui/checkbox";
 
 import { formSchema as trialFormSchema, defaultValues as trialDefaultValues } from '../formSchema';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -65,6 +66,9 @@ export const TrialApplicationForm = () => {
   return (
     <Form {...trialForm}>
       <form onSubmit={trialForm.handleSubmit(submitTrialApplication)} className="space-y-8 w-full mt-12">
+        <h2 className="scroll-m-20 text-4xl tracking-tight mt-6 font-semibold first:mt-0">
+        SECTION I: INVESTIGATOR INFORMATION
+        </h2>
         <h2 className="scroll-m-20 text-3xl tracking-tight mt-6 font-semibold first:mt-0">
           Investigator Name:
         </h2>
@@ -95,7 +99,7 @@ export const TrialApplicationForm = () => {
           )}
         />
         <h2 className="scroll-m-20 text-3xl tracking-tight mt-6 font-semibold first:mt-0">
-          Investigator Address:
+        Investigator Contact Information:
         </h2>
         <FormField
           control={trialForm.control}
@@ -214,6 +218,9 @@ export const TrialApplicationForm = () => {
             </FormItem>
           )}
         /> 
+        <h2 className="scroll-m-20 text-3xl tracking-tight mt-6 font-semibold first:mt-0">
+        Study Coordinator:
+        </h2>
         <FormField
           control={trialForm.control}
           name="investigator.hasDedicatedStudyCoordinator"
@@ -280,8 +287,119 @@ export const TrialApplicationForm = () => {
             </FormItem>
           )}
         />
+
+                    <FormField
+            control={trialForm.control}
+            name="investigator.studyCoordinator.employmentType"
+            render={({ field }) => (
+              <FormItem className="space-y-3">
+                <FormLabel>What is their employment type? (select all that apply)</FormLabel>
+                <FormControl>
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="fullTime"
+                        checked={field.value?.includes('fullTime')}
+                        onCheckedChange={(checked) => {
+                          const value = field.value || [];
+                          if (checked) {
+                            field.onChange([...value, 'fullTime']);
+                          } else {
+                            field.onChange(value.filter((v) => v !== 'fullTime'));
+                          }
+                        }}
+                      />
+                      <label htmlFor="fullTime">Full time</label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="partTime"
+                        checked={field.value?.includes('partTime')}
+                        onCheckedChange={(checked) => {
+                          const value = field.value || [];
+                          if (checked) {
+                            field.onChange([...value, 'partTime']);
+                          } else {
+                            field.onChange(value.filter((v) => v !== 'partTime'));
+                          }
+                        }}
+                      />
+                      <label htmlFor="partTime">Part time</label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="casual"
+                        checked={field.value?.includes('casual')}
+                        onCheckedChange={(checked) => {
+                          const value = field.value || [];
+                          if (checked) {
+                            field.onChange([...value, 'casual']);
+                          } else {
+                            field.onChange(value.filter((v) => v !== 'casual'));
+                          }
+                        }}
+                      />
+                      <label htmlFor="casual">Casual</label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="contract"
+                        checked={field.value?.includes('contract')}
+                        onCheckedChange={(checked) => {
+                          const value = field.value || [];
+                          if (checked) {
+                            field.onChange([...value, 'contract']);
+                          } else {
+                            field.onChange(value.filter((v) => v !== 'contract'));
+                          }
+                        }}
+                      />
+                      <label htmlFor="contract">Contract</label>
+                    </div>
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          
+          <FormField
+            control={trialForm.control}
+            name="investigator.studyCoordinator.contractEndDate"
+            render={({ field }) => (
+              <FormItem className="space-y-3">
+                <FormLabel>What is the Study Coordinator's contract end date?</FormLabel>
+                <div className="flex gap-4 items-center">
+                  <FormControl>
+                    <Input 
+                      type="date"
+                      {...field}
+                      value={field.value || ''}
+                      disabled={field.value === 'N/A'}
+                    />
+                  </FormControl>
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="naCheckbox"
+                      checked={field.value === 'N/A'}
+                      onCheckedChange={(checked) => {
+                        if (checked) {
+                          field.onChange('N/A');
+                        } else {
+                          field.onChange('');
+                        }
+                      }}
+                    />
+                    <label htmlFor="naCheckbox">N/A</label>
+                  </div>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
         <h2 className="scroll-m-20 text-3xl tracking-tight mt-6 font-semibold first:mt-0">
-          Study Coordinator Work Address:
+        Study Coordinator Contact Information:
         </h2>
         <FormField
           control={trialForm.control}
@@ -460,7 +578,7 @@ export const TrialApplicationForm = () => {
           name="clinicalSite.isBoardCertified"
           render={({ field }) => (
             <FormItem className="space-y-3">
-              <FormLabel>Are you board certified?</FormLabel>
+              <FormLabel>Are you board certified or equivalent in your country?</FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={(value: string) => {field.onChange(value === "yes" ? true : false)}}
@@ -494,7 +612,7 @@ export const TrialApplicationForm = () => {
           name="clinicalSite.boardCertificationSpecialties"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>If yes, in what specialty area(s) do you have board certification?</FormLabel>
+              <FormLabel>If yes, in what specialty area(s) do you have board certification/equivalent in your country?</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -793,7 +911,9 @@ export const TrialApplicationForm = () => {
           name="clinicalSite.hasSOPs"
           render={({ field }) => (
             <FormItem className="space-y-3">
-              <FormLabel>Does your clinical site have and follow Standard Operating Procedures (SOPs) for the conduct of clinical research?</FormLabel>
+              <FormLabel>Does your clinical site have and follow Standard Operating Procedures
+(SOPs) for the conduct of clinical research? Please note, these will need to be
+shared with our coordinating site.</FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={(value: string) => {field.onChange(value === "yes" ? true : false)}}
@@ -822,18 +942,6 @@ export const TrialApplicationForm = () => {
             </FormItem>
           )}
         />
-        <div className='pt-1'>
-          <FormLabel>If yes, please submit a copy of the Table of Contents as PDF file (5MB max)</FormLabel>
-          <SingleFileDropzone
-            width={400}
-            height={100}
-            className='w-full h-52'
-            value={file}
-            onChange={(file?: File) => {
-              setFile(file);
-            }}
-          />
-        </div>
         <FormField
           control={trialForm.control}
           name="clinicalSite.patientMedicalRecordMaintenance"
@@ -844,14 +952,14 @@ export const TrialApplicationForm = () => {
                 <RadioGroup
                   onValueChange={field.onChange}
                   defaultValue={field.value ?? undefined}
-                  className="flex flex-row space-x-1"
+                  className="flex flex-col"
                 >
-                  <FormItem className="flex flex-col items-center space-x-3 space-y-0">
+                  <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value="Maintain original paper patient medical record" />
+                      <RadioGroupItem value="Maintain both paper and electronic patient medical record" />
                     </FormControl>
                     <FormLabel className="font-normal">
-                      Maintain original paper patient medical record
+                    Maintain original paper patient medical record
                     </FormLabel>
                   </FormItem>
                   <FormItem className="flex items-center space-x-3 space-y-0">
@@ -910,6 +1018,20 @@ export const TrialApplicationForm = () => {
             </FormItem>
           )}
         />
+        {/* <div className='pt-1'>
+          <FormLabel>If yes, please submit a copy of the Table of Contents as PDF file (5MB max)</FormLabel>
+          <SingleFileDropzone
+            width={400}
+            height={100}
+            className='w-full h-52'
+            value={file}
+            onChange={(file?: File) => {
+              setFile(file);
+            }}
+          />
+        </div> */}
+        
+        
         <FormField
           control={trialForm.control}
           name="clinicalSite.allowsDeIdentifiedNotesSubmission"
@@ -938,6 +1060,14 @@ export const TrialApplicationForm = () => {
                       No
                     </FormLabel>
                   </FormItem>
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="Unknown" />
+                    </FormControl>
+                    <FormLabel className="font-normal">
+                      Unknown
+                    </FormLabel>
+                  </FormItem>
                 </RadioGroup>
               </FormControl>
               <FormMessage />
@@ -949,7 +1079,8 @@ export const TrialApplicationForm = () => {
           name="clinicalSite.newPrimaryExtremitySarcomasTreatedYearly"
           render={({ field }) => (
             <FormItem className="space-y-3">
-              <FormLabel>Approximately how many new primary extremity soft-tissue sarcomas do you treat each year?</FormLabel>
+              <FormLabel>Approximately how many metastatic bone disease (MBD) patients with
+              disease in the proximal femur do you treat surgically each year?</FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
@@ -1002,150 +1133,145 @@ export const TrialApplicationForm = () => {
             </FormItem>
           )}
         />
-        <FormField
-          control={trialForm.control}
-          name="clinicalSite.postOpSurveillancePractice"
-          render={({ field }) => (
-            <FormItem className="space-y-3">
-              <FormLabel>What is your standard practice for post-operative surveillance for lung metastases in soft-tissue sarcoma patients?</FormLabel>
-              <FormControl>
-                <RadioGroup
-                  onValueChange={field.onChange}
-                  defaultValue={field.value ?? undefined}
-                  className="flex flex-row space-x-1"
-                >
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="Chest CT scan" />
-                    </FormControl>
-                    <FormLabel className="font-normal">
-                      Chest CT scan
-                    </FormLabel>
-                  </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="CXR" />
-                    </FormControl>
-                    <FormLabel className="font-normal">
-                      CXR
-                    </FormLabel>
-                  </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="Other" />
-                    </FormControl>
-                    <FormLabel className="font-normal">
-                      Other
-                    </FormLabel>
-                  </FormItem>
-                </RadioGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={trialForm.control}
-          name="clinicalSite.postOpSurveillanceOther"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>If other, please specify:</FormLabel>
-              <FormControl>
-                <Input {...field} value={field.value ?? ""} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={trialForm.control}
-          name="clinicalSite.imagingModalitiesAvailable"
-          render={({ field }) => (
-            <FormItem className="space-y-3">
-              <FormLabel>Are both imaging modalities (CT scan and CXR) available at your clinical site?</FormLabel>
-              <FormControl>
-                <RadioGroup
-                  onValueChange={(value: string) => {field.onChange(value === "yes" ? true : false)}}
-                  defaultValue={field.value ? "yes" : "no"}
-                  className="flex flex-row space-x-1"
-                >
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="yes" />
-                    </FormControl>
-                    <FormLabel className="font-normal">
-                      Yes
-                    </FormLabel>
-                  </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="no" />
-                    </FormControl>
-                    <FormLabel className="font-normal">
-                      No
-                    </FormLabel>
-                  </FormItem>
-                </RadioGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={trialForm.control}
-          name="clinicalSite.followUpFrequencyFirstTwoYears"
-          render={({ field }) => (
-            <FormItem className="space-y-3">
-              <FormLabel>In the first two post-operative years, how often do you typically see soft-tissue sarcoma patients for follow-up?</FormLabel>
-              <FormControl>
-                <RadioGroup
-                  onValueChange={field.onChange}
-                  defaultValue={field.value ?? undefined}
-                  className="flex flex-row space-x-1"
-                >
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="Every 3 Months" />
-                    </FormControl>
-                    <FormLabel className="font-normal">
-                      Every 3 Months
-                    </FormLabel>
-                  </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="Every 6 Months" />
-                    </FormControl>
-                    <FormLabel className="font-normal">
-                      Every 6 Months
-                    </FormLabel>
-                  </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="Other" />
-                    </FormControl>
-                    <FormLabel className="font-normal">
-                      Other
-                    </FormLabel>
-                  </FormItem>
-                </RadioGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={trialForm.control}
-          name="clinicalSite.followUpFrequencyOther"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>If other, please specify:</FormLabel>
-              <FormControl>
-                <Input {...field} value={field.value ?? ""} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+
+      <FormField
+        control={trialForm.control}
+        name="clinicalSite.canPerformAllSurgeries"
+        render={({ field }) => (
+          <FormItem className="space-y-3">
+            <FormLabel>Are you comfortable doing ALL of the following surgical procedures in a patient with MBD of the proximal femur: internal fixation of the proximal femur, femoral endoprosthetic reconstruction, hip arthroplasty?</FormLabel>
+            <FormControl>
+              <RadioGroup
+                onValueChange={(value: string) => {field.onChange(value === "yes" ? true : false)}}
+                defaultValue={field.value ? "yes" : "no"}
+                className="flex flex-row space-x-1"
+              >
+                <FormItem className="flex items-center space-x-3 space-y-0">
+                  <FormControl>
+                    <RadioGroupItem value="yes" />
+                  </FormControl>
+                  <FormLabel className="font-normal">Yes</FormLabel>
+                </FormItem>
+                <FormItem className="flex items-center space-x-3 space-y-0">
+                  <FormControl>
+                    <RadioGroupItem value="no" />
+                  </FormControl>
+                  <FormLabel className="font-normal">No</FormLabel>
+                </FormItem>
+              </RadioGroup>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />  
+
+      <FormField
+        control={trialForm.control}
+        name="clinicalSite.surgeriesCompletedAtSite"
+        render={({ field }) => (
+          <FormItem className="space-y-3">
+            <FormLabel>Are all of the surgical procedures mentioned above completed at your site?</FormLabel>
+            <FormControl>
+              <RadioGroup
+                onValueChange={(value: string) => {field.onChange(value === "yes" ? true : false)}}
+                defaultValue={field.value ? "yes" : "no"}
+                className="flex flex-row space-x-1"
+              >
+                <FormItem className="flex items-center space-x-3 space-y-0">
+                  <FormControl>
+                    <RadioGroupItem value="yes" />
+                  </FormControl>
+                  <FormLabel className="font-normal">Yes</FormLabel>
+                </FormItem>
+                <FormItem className="flex items-center space-x-3 space-y-0">
+                  <FormControl>
+                    <RadioGroupItem value="no" />
+                  </FormControl>
+                  <FormLabel className="font-normal">No</FormLabel>
+                </FormItem>
+              </RadioGroup>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={trialForm.control}
+        name="clinicalSite.surgeriesNotCompletedExplanation"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>If no, please explain:</FormLabel>
+            <FormControl>
+              <Input {...field} value={field.value ?? ""} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+<FormField
+  control={trialForm.control}
+  name="clinicalSite.coordinatorAllowedDuringSurgery"
+  render={({ field }) => (
+    <FormItem className="space-y-3">
+      <FormLabel>Is it permitted at your site for the Study Coordinator to be present during surgery?</FormLabel>
+      <FormControl>
+        <RadioGroup
+          onValueChange={(value: string) => {field.onChange(value === "yes" ? true : false)}}
+          defaultValue={field.value ? "yes" : "no"}
+          className="flex flex-row space-x-1"
+        >
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="yes" />
+            </FormControl>
+            <FormLabel className="font-normal">Yes</FormLabel>
+          </FormItem>
+          <FormItem className="flex items-center space-x-3 space-y-0">
+            <FormControl>
+              <RadioGroupItem value="no" />
+            </FormControl>
+            <FormLabel className="font-normal">No</FormLabel>
+          </FormItem>
+        </RadioGroup>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <h2 className="scroll-m-20 text-4xl tracking-tight mt-6 font-semibold first:mt-0">
           SECTION III: CLINICAL TRIAL QUESTIONS
         </h2>
@@ -1154,7 +1280,9 @@ export const TrialApplicationForm = () => {
           name="clinicalTrialQuestions.comfortableWithRandomization"
           render={({ field }) => (
             <FormItem className="space-y-3">
-              <FormLabel>Are you comfortable with your soft-tissue sarcoma patients being randomized to a surveillance regimen that may be more or less intensive than your standard practice?</FormLabel>
+              <FormLabel>Are you comfortable with your patients with MBD of the proximal femur being
+randomized to either reconstruction or internal fixation (i.e. do you have
+clinical equipoise)? The inclusion and exclusion criteria are listed below:</FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={(value: string) => {field.onChange(value === "yes" ? true : false)}}
@@ -1183,25 +1311,64 @@ export const TrialApplicationForm = () => {
             </FormItem>
           )}
         />
-        <div>
-          <FormLabel>
-            PERFORM trial participants will be randomized to one of four treatment arms:
-            <br></br>
-            {"1) Clinical assessment + CXR every 3 months for 2 years;"}
-            <br></br>
-            {"2) Clinical assessment + chest CT scan every 3 months for 2 years;"}
-            <br></br>
-            {"3) Clinical assessment + CXR every 6 months for 2 years; or"}
-            <br></br>
-            {"4) Clinical assessment + chest CT scan every 6 months for 2 years"}
-          </FormLabel>
+        <div className="mt-8 mb-6">
+          <div className="border rounded-lg overflow-hidden">
+            <table className="w-full">
+              <thead>
+                <tr>
+                  <th className="bg-gray-100 px-6 py-3 text-left font-semibold border-b">
+                    Inclusion Criteria
+                  </th>
+                  <th className="bg-gray-100 px-6 py-3 text-left font-semibold border-b">
+                    Exclusion Criteria
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border-b px-6 py-4">
+                    Life expectancy of at least 6 months
+                  </td>
+                  <td className="border-b px-6 py-4">
+                    Lesions isolated to the femoral neck
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border-b px-6 py-4">
+                    Lesions in the proximal femur (femoral neck, intertrochanteric region, subtrochanteric region, and combinations thereof)
+                  </td>
+                  <td className="border-b px-6 py-4">
+                    Lesion with any femoral head involvement
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border-b px-6 py-4">
+                    Low or intermediate risk for perioperative morbidity and/or mortality
+                  </td>
+                  <td className="border-b px-6 py-4">
+                    High risk for perioperative morbidity and/or mortality
+                  </td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4">
+                    No more than 75% and no less than 25% bone loss
+                  </td>
+                  <td className="px-6 py-4">
+                    Multidisciplinary decision that resection of the entire lesion would be indicated
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
         <FormField
           control={trialForm.control}
           name="clinicalTrialQuestions.logisticalChallenges"
           render={({ field }) => (
             <FormItem className="space-y-3">
-              <FormLabel>Do you foresee any logistical challenges with ensuring that study participants at your clinical site obtain the prescribed thoracic imaging and are assessed in clinic at the appropriate frequency?</FormLabel>
+              <FormLabel>Do you foresee any logistical challenges with ensuring that the surgical
+              equipment will be available at your site for either randomized group?
+              </FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={(value: string) => {field.onChange(value === "yes" ? true : false)}}
@@ -1249,11 +1416,9 @@ export const TrialApplicationForm = () => {
           render={({ field }) => (
             <FormItem className="space-y-3">
               <FormLabel>
-                Do you anticipate any challenges with documenting the following study event data for each study participant (if applicable)?
-                <br></br>
-                ▪ Oncologic events (such as local recurrence or systemic relapse); and
-                <br></br>
-                ▪ Treatment-related complications (including chemotherapy-related complications [such as febrile neutropenia, fungal infections or sepsis] and thoracotomy-related complications [such as pneumothorax or surgical site infections])
+              Do you anticipate any challenges with documenting the following study event
+              data for each study participant: Local recurrence, reoperations, death (if
+              applicable)?
               </FormLabel>
               <FormControl>
                 <RadioGroup
@@ -1302,13 +1467,9 @@ export const TrialApplicationForm = () => {
           render={({ field }) => (
             <FormItem className="space-y-3">
               <FormLabel>
-                Do you anticipate any challenges with administering the following questionnaires to study participants at your clinical site at the 6M, 12M, 18M, 24M, 36M, 48M and 60M study visits?
-                <br></br>
-                ▪ PROMIS Cancer-Anxiety Questionnaire;
-                <br></br>
-                ▪ PROMIS Satisfaction with Social Roles and Activities Questionnaire; and
-                <br></br>
-                ▪ EQ-5D Questionnaire
+              Do you anticipate any challenges with administering questionnaires for study
+participants to complete, including a log recording days at home, at your clinical site at the 2 week, 6 week, 4 month, 6 month, 9 month, &amp; 12 month
+post-surgery study visits?
               </FormLabel>
               <FormControl>
                 <RadioGroup
@@ -1357,7 +1518,8 @@ export const TrialApplicationForm = () => {
           render={({ field }) => (
             <FormItem className="space-y-3">
               <FormLabel>
-                Do you anticipate any clinical site-specific challenges with maintaining 5-year study participant follow-up?
+              Do you anticipate any clinical site-specific challenges with maintaining 1-year
+              study participant follow-up?
               </FormLabel>
               <FormControl>
                 <RadioGroup
@@ -1400,64 +1562,7 @@ export const TrialApplicationForm = () => {
             </FormItem>
           )}
         />
-        <FormField
-          control={trialForm.control}
-          name="clinicalTrialQuestions.challengesWithDocumentingCosts"
-          render={({ field }) => (
-            <FormItem className="space-y-3">
-              <FormLabel>
-                Do you anticipate any challenges with documenting the following clinical site-specific data?
-                <br></br>
-                ▪ Follow-up care costs (such as costs associated with orthopaedic oncology clinic visits, thoracic imaging [both CT and CXR], imaging interpretation and hospital parking);
-                <br></br>
-                ▪ Costs associated with unplanned re-operations (such as costs associated with OR time, anesthesia time and type, surgeon time, scrub nurse time, surgical supplies, pain medication and hospital
-                admission);
-                <br></br>
-                ▪ Costs associated with oncologic events (such as costs associated with medical oncology visits, radiation oncology visits, chemotherapy and radiation); and
-                <br></br>
-                ▪ Costs associated with treatment-related complications (such as costs associated with hospital admission, medications and surgery)
-              </FormLabel>
-              <FormControl>
-                <RadioGroup
-                  onValueChange={(value: string) => {field.onChange(value === "yes" ? true : false)}}
-                  defaultValue={field.value ? "yes" : "no"}
-                  className="flex flex-row space-x-1"
-                >
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="yes" />
-                    </FormControl>
-                    <FormLabel className="font-normal">
-                      Yes
-                    </FormLabel>
-                  </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="no" />
-                    </FormControl>
-                    <FormLabel className="font-normal">
-                      No
-                    </FormLabel>
-                  </FormItem>
-                </RadioGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={trialForm.control}
-          name="clinicalTrialQuestions.documentingCostsDetails"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>If yes, please specify:</FormLabel>
-              <FormControl>
-                <Input {...field} value={field.value ?? ""} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+
         <FormField
           control={trialForm.control}
           name="clinicalTrialQuestions.interestedInParticipating"
